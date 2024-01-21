@@ -1,0 +1,58 @@
+/* Estilos para dispositivos maiores (desktop) */
+
+* {
+    box-sizing: border-box;
+}
+
+.area-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* 10 assentos por fila */
+    gap: 5px;
+}
+
+.seat-button {
+    width: 40px; /* Reduzindo o tamanho do botão */
+    height: 40px; /* Reduzindo o tamanho do botão */
+    background-color: #ccc;
+    border: 1px solid #aaa;
+    margin: 5px; /* Espaço entre cada assento */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%; /* Utilizamos border-radius: 50% para criar um círculo */
+}
+
+.seat-button.selected {
+    background-color: #4CAF50; /* Cor de fundo quando selecionado */
+    color: #fff; /* Cor do texto quando selecionado */
+}
+
+.checkout-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Estilos para dispositivos menores (mobile) */
+@media screen and (max-width: 767px) {
+    .seat-grid {
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    }
+
+    .seat-button {
+        width: 100%;
+        max-width: 40px;
+        height: 40px;
+        margin: 5px 2.5px; /* Espaço entre cada assento, ajustado para melhor visualização em dispositivos móveis */
+    }
+}
