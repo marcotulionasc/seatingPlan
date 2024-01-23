@@ -1,41 +1,66 @@
-$(document).ready(function () {
-    var selectedSeats = [];
+// Suponha que você tenha as seguintes variáveis
+var price = 100;
+var capacity = 200;
+var available = "Sim";
 
-    // Função para criar assentos em uma área específica
-    function createSeats(containerId, areaName, totalSeats) {
-        var $seatGrid = $('#' + containerId + ' .seat-grid');
+// Selecione os elementos
+var pistaDiv = document.querySelector('.pista-div');
+var frontstageDiv = document.querySelector('.frontstage-div');
 
-        // Renderizar botões de assentos
-        for (var i = 1; i <= totalSeats; i++) {
-            $seatGrid.append('<button class="seat-button" data-area="' + areaName + '" data-seat="' + i + '">' + i + '</button>');
-        }
+// Crie uma função para mostrar as informações quando o mouse passar sobre a div
+function showInfo(event) {
+    var info = "Valor do ingresso: R$" + price + "\nCapacidade: " + capacity + "\nDisponível: " + available;
 
-        // Adicionar funcionalidade de seleção ao clicar nos botões
-        $seatGrid.on('click', '.seat-button', function () {
-            var areaName = $(this).data('area');
-            var seatNumber = $(this).data('seat');
-            var seatIndex = selectedSeats.findIndex(seat => seat.seatNumber === seatNumber && seat.areaName === areaName);
+    // Criação do elemento div com estilos melhorados
+    var pseudoElement = document.createElement('div');
+    pseudoElement.style.position = 'absolute';
+    pseudoElement.style.top = '50%';
+    pseudoElement.style.transform = 'translateY(-50%)';
+    pseudoElement.style.backgroundColor = 'white';
+    pseudoElement.style.color = 'black';
+    pseudoElement.style.padding = '10px';
+    pseudoElement.style.whiteSpace = 'pre';
+    pseudoElement.style.border = '1px solid black';
+    pseudoElement.style.borderRadius = '10px'; // Adiciona border radius
+    pseudoElement.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; // Adiciona uma sombra
 
-            if (seatIndex === -1) {
-                // Assento não está selecionado, adicionar à lista
-                selectedSeats.push({ areaName: areaName, seatNumber: seatNumber });
-                $(this).addClass('selected');
-            } else {
-                // Assento está selecionado, remover da lista
-                selectedSeats.splice(seatIndex, 1);
-                $(this).removeClass('selected');
-            }
-        });
+    // Adiciona estilos específicos para o valor do ingresso
+    var valueStyle = document.createElement('span');
+    valueStyle.style.color = 'green';
+    valueStyle.style.fontWeight = 'bold';
+    valueStyle.textContent = "Valor do ingresso: R$" + price;
+
+    // Adiciona estilos específicos para a capacidade
+    var capacityStyle = document.createElement('span');
+    capacityStyle.style.display = 'block'; // Garante que a capacidade apareça abaixo do valor do ingresso
+    capacityStyle.textContent = "Capacidade: " + capacity + "\nDisponível: " + available;
+
+    // Adiciona os elementos de estilo ao pseudoElement
+    pseudoElement.appendChild(valueStyle);
+    pseudoElement.appendChild(capacityStyle);
+
+    // Verifica a classe da div para determinar a posição
+    if (event.target.classList.contains('pista-div')) {
+        pseudoElement.style.left = '100%'; // Para div com classe pista-div
+    } else if (event.target.classList.contains('frontstage-div')) {
+        pseudoElement.style.right = '100%'; // Para div com classe frontstage-div
     }
 
-    // Criar assentos para cada área
-    createSeats('vip-container', 'Área VIP', 30);
-    createSeats('box-container', 'Camarote', 20);
-    createSeats('floor-container', 'Pista', 50);
+    event.target.appendChild(pseudoElement);
+}
 
-    // Botão de checkout (fora da função createSeats)
-    $('.checkout-btn').on('click', function () {
-        // Exemplo de ação de checkout (pode ser substituída por sua lógica real de checkout)
-        alert('Assentos selecionados:\n' + selectedSeats.map(seat => seat.areaName + ' - Assento ' + seat.seatNumber).join('\n'));
-    });
-});
+// Adicione o evento de mouseover aos elementos
+pistaDiv.addEventListener('mouseover', showInfo);
+frontstageDiv.addEventListener('mouseover', showInfo);
+
+// Crie uma função para remover as informações quando o mouse sair da div
+function hideInfo(event) {
+    var pseudoElement = event.target.querySelector('div');
+    if (pseudoElement) {
+        event.target.removeChild(pseudoElement);
+    }
+}
+
+// Adicione o evento de mouseout aos elementos
+pistaDiv.addEventListener('mouseout', hideInfo);
+frontstageDiv.addEventListener('mouseout', hideInfo);
