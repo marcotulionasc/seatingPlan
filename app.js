@@ -41,9 +41,9 @@ function showInfo(event) {
 
     // Verifica a classe da div para determinar a posição
     if (event.target.classList.contains('pista-div')) {
-        pseudoElement.style.left = '100%'; // Para div com classe pista-div
+        pseudoElement.style.right = '100%'; // Para div com classe pista-div
     } else if (event.target.classList.contains('frontstage-div')) {
-        pseudoElement.style.right = '100%'; // Para div com classe frontstage-div
+        pseudoElement.style.left = '100%'; // Para div com classe frontstage-div
     }
 
     event.target.appendChild(pseudoElement);
