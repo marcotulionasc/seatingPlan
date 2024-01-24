@@ -1,9 +1,17 @@
-.container {
+.responsive-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Isso fará com que o container ocupe toda a altura da tela */
-     /* Isso adicionará uma borda preta ao redor do container */
+    height: 100vh;
+}
+
+/* Isso aplicará estilos diferentes se a largura da tela for 600px ou menos */
+@media (max-width: 600px) {
+    .responsive-container {
+        flex-direction: column; /* Isso fará com que os itens do flexbox sejam empilhados verticalmente */
+        height: auto; /* Isso permitirá que o container cresça para acomodar seu conteúdo */
+        padding: 20px; /* Isso adicionará algum espaço ao redor do conteúdo */
+    }
 }
 
 img {
@@ -63,4 +71,29 @@ img {
     transform: translate(-50%, -50%) scale(1.05);
     cursor: pointer;
     border-color: rgba(9, 25, 147, 0.4); /* Fundo roxo claro com 40% de transparência */
+}
+
+#zoomIn, #zoomOut {
+    position: fixed;
+    left: 450px;
+    font-size: 2em;
+    padding: 5px;
+    cursor: pointer;
+    width: 50px; /* Define a largura dos botões */
+    height: 50px; /* Define a altura dos botões */
+    text-align: center; /* Centraliza o texto dos botões */
+    line-height: 50px; /* Alinha verticalmente o texto dos botões */
+    border-radius: 20%; /* Arredonda os botões */
+    background-color: rgba(23, 22, 22, 0.7); /* Fundo preto com 50% de transparência */
+    color: #fff; /* Cor do texto dos botões */
+    transition: background-color 0.3s ease-in-out; /* Adiciona transição ao fundo dos botões */
+    
+}
+
+#zoomOut {
+    top: 180px; /* Ajusta a posição do botão de zoom out para acomodar o tamanho aumentado do botão */
+}
+
+#zoomIn {
+    top: 120px;
 }
